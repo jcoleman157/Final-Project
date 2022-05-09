@@ -1,9 +1,9 @@
 public class Constants {
-    enum cardValue {
+    public enum cardValue {
         ACE, KING, QUEEN, JACK, TEN, NINE, EIGHT, SEVEN, SIX, FIVE, FOUR, THREE, TWO;
     }
 
-    enum cardSet {
+    public enum cardSet {
         HEART, DIAMOND, SPADE, CLUB;
     }
 
