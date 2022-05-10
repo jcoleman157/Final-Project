@@ -8,6 +8,9 @@ public class Constants {
     }
 
     public class mainBlackjack {
-        public final int NUMOFDECKS = 1;
+        public final static int NUMOFDECKS = 1;
+        public final static String NAME = "BLAKCJACK";
+        public final static int WIDTH = 800;
+        public final static int LENGTH = 800;
     }
 }
