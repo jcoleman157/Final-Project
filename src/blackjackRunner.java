@@ -1,7 +1,7 @@
 import javax.swing.*;
-public class blackjackRunner {
+public class BlackjackRunner{
     public static void main(String[] args) {
-        blackjack jack = new blackjack();
+        BlackjackVisuals jack = new BlackjackVisuals();
         jack.startup();
     }
 }

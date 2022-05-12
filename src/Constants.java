@@ -9,10 +9,7 @@ public class Constants {
         HEART, DIAMOND, SPADE, CLUB;
     }
 
-    public class mainBlackjack {
-        // the number of decks used for counting cards. default is one so one of each
-        // set will show up. if 2 than 2 will show
-        public final int NUMOFDECKS = 1;
+    public class mainBlackjackVisual {
         // Dimentions for the frame
         public static final int WIDTH = 800;
         public static final int HEIGHT = 800;
@@ -23,5 +20,10 @@ public class Constants {
         public static final String NAME = "BLACKJACK";
         // This is the text for the start button
         public static final String START = "Start";
+    }
+    public class mainBlackjackGame {
+        // the number of decks used for counting cards. default is one so one of each
+        // set will show up. if 2 than 2 will show
+        public final static int NUMOFDECKS = 1;
     }
 }
