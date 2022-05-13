@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Random;
+
 
 public class BlackjackGame {
     private Random rand = new Random();
-    private int numOfDecks;
-
+    private int numOfDecks; 
     public BlackjackGame() {
         numOfDecks = Constants.mainBlackjackGame.NUMOFDECKS;
     }
@@ -19,9 +20,11 @@ public class BlackjackGame {
     public void setNumOfDecks(int numOfDecks) {
         this.numOfDecks = numOfDecks;
     }
-
+    /**
+     * This is the "logic" for the game, NEED TO MAKE IT SO WE CAN COUNT CARDS
+     */
     public void gameLogic() {
-        int cardVal = rand.nextInt(13) + 1;
-        int cardType = rand.nextInt(4) + 1;
+
     }
+
 }
