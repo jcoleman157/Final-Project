@@ -9,7 +9,7 @@
  */
 public class Cards {
     Constants.cardValue cardVal;
-    Constants.cardSet cardType;
+    Constants.cardSet cardSet;
 
     public Cards(int val, int type) {
         if(val == 1){
@@ -52,17 +52,23 @@ public class Cards {
             cardVal = Constants.cardValue.TWO;
         }
         if(type == 1){
-            cardType = Constants.cardSet.HEART;
+            cardSet = Constants.cardSet.HEART;
         }
         if(type == 2){
-            cardType = Constants.cardSet.DIAMOND;
+            cardSet = Constants.cardSet.DIAMOND;
         }
         if(type == 3){
-            cardType = Constants.cardSet.SPADE;
+            cardSet = Constants.cardSet.SPADE;
         }
         if(type == 4){
-            cardType = Constants.cardSet.CLUB;
+            cardSet = Constants.cardSet.CLUB;
         }
-        
+        System.out.println("Card : Value = " + cardVal + ", Suite = " + cardSet); 
+    }
+    public Constants.cardValue getCardValue(){
+        return cardVal;
+    }
+    public Constants.cardSet getCardSet(){
+        return cardSet;
     }
 }

@@ -21,9 +21,10 @@ public class Constants {
         // This is the text for the start button
         public static final String START = "Start";
     }
+
     public class mainBlackjackGame {
-        // the number of decks used for counting cards. default is one so one of each
-        // set will show up. if 2 than 2 will show
-        public final static int NUMOFDECKS = 1;
+        // the number of decks used for counting cards. default is six because this is
+        // how pro blackjack is played
+        public final static int NUMOFDECKS = 6;
     }
 }
