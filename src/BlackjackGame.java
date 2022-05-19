@@ -28,6 +28,7 @@ public class BlackjackGame {
      */
     public void gameLogic() {
         int userCount = 0;
+        boolean keepPlaying = true;
         getNewDeck();
         shuffleDeck();
         Cards currentCard = drawCard();
@@ -36,22 +37,34 @@ public class BlackjackGame {
         currentCard = drawCard();
         cardVal = currentCard.getCardValue();
         userCount += userCardValue(cardVal);
-        System.out.println("User hand : " + userCount);
+        while (keepPlaying) {
+            System.out.println("User hand : " + userCount);
+            keepPlaying = hitOrStay();
+            if (keepPlaying) {
+                currentCard = drawCard();
+                cardVal = currentCard.getCardValue();
+                userCount += userCardValue(cardVal);
+            }
+        }
+        if(keepPlaying()){
+            gameLogic();
+        }
     }
 
     /**
      * This will draw 52 * numOfCards cards
      */
     private void getNewDeck() {
-        for(int g = 1; g <= numOfDecks; g++){
-        for (int i = 1; i <= 13; i++) {
-            for (int k = 1; k <= 4; k++) {
-                Cards card = new Cards(i, k);
-                arrList.add(card);
+        for (int g = 1; g <= numOfDecks; g++) {
+            for (int i = 1; i <= 13; i++) {
+                for (int k = 1; k <= 4; k++) {
+                    Cards card = new Cards(i, k);
+                    arrList.add(card);
+                }
             }
         }
     }
-    }
+
     /**
      * shuffles deck
      */
@@ -63,12 +76,13 @@ public class BlackjackGame {
             arrList.set(location1, arrList.get(location2));
             arrList.set(location2, tmp);
         }
-        for(int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             System.out.println();
         }
-        for (int i = 0; i < arrList.size(); i++){
-            System.out.println("Card : Value = " + arrList.get(i).getCardValue() + ", Suite = " + arrList.get(i).getCardSet());
-        }
+        // for (int i = 0; i < arrList.size(); i++){
+        // System.out.println("Card : Value = " + arrList.get(i).getCardValue() + ",
+        // Suite = " + arrList.get(i).getCardSet());
+        // }
     }
 
     private Cards drawCard() {
@@ -109,14 +123,36 @@ public class BlackjackGame {
         }
         return -1; // SHOULD be unreachable this is just in case, can never be too carful
     }
-    private int userOneOrElev(){
+
+    private int userOneOrElev() {
         Scanner scan = new Scanner(System.in);
         System.out.println("type Y for one, N for elevin");
         String answerElevOrOne = scan.nextLine();
-        if(answerElevOrOne.charAt(0) == 'y' || answerElevOrOne.charAt(0) == 'Y'){
+        if (answerElevOrOne.charAt(0) == 'y' || answerElevOrOne.charAt(0) == 'Y') {
             return 1;
-        }
-        else 
+        } else
             return 11;
+    }
+
+    private boolean hitOrStay() {
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Hit or Stay? (H for hit, S for stay) ");
+        char hitOrStay = scan.nextLine().charAt(0);
+        if (hitOrStay == 'H' || hitOrStay == 'h') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    private boolean keepPlaying(){
+        Scanner scan = new Scanner(System.in);
+        System.out.print("Play again? (Y for yes, N for no) ");
+        char keepPlaying = scan.nextLine().charAt(0);
+        if(keepPlaying == 'y' || keepPlaying == 'Y'){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

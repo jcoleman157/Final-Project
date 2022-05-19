@@ -26,5 +26,7 @@ public class Constants {
         // the number of decks used for counting cards. default is six because this is
         // how pro blackjack is played
         public final static int NUMOFDECKS = 6;
+        // What the user start off with for money, they choose amount and this updates
+        public final static int STARTINGVAL = 1000;
     }
 }

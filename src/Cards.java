@@ -63,7 +63,7 @@ public class Cards {
         if(type == 4){
             cardSet = Constants.cardSet.CLUB;
         }
-        System.out.println("Card : Value = " + cardVal + ", Suite = " + cardSet); 
+        // System.out.println("Card : Value = " + cardVal + ", Suite = " + cardSet); 
     }
     public Constants.cardValue getCardValue(){
         return cardVal;
