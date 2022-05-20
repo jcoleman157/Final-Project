@@ -3,15 +3,18 @@ import java.util.*;
 
 public class BlackjackGame {
     private int numOfDecks;
+    private int money;
     private ArrayList<Cards> arrList;
 
     public BlackjackGame() {
         numOfDecks = Constants.mainBlackjackGame.NUMOFDECKS;
+        money = Constants.mainBlackjackGame.STARTINGVAL;
         arrList = new ArrayList<Cards>();
     }
 
-    public BlackjackGame(int numOfDecks) {
+    public BlackjackGame(int numOfDecks, int money) {
         this.numOfDecks = numOfDecks;
+        this.money = money;
         arrList = new ArrayList<Cards>();
     }
 
@@ -24,13 +27,14 @@ public class BlackjackGame {
     }
 
     /**
-     * This is the "logic" for the game, NEED TO MAKE IT SO WE CAN COUNT CARDS
+     * This is the "logic" for the game
      */
     public void gameLogic() {
         int userCount = 0;
         boolean keepPlaying = true;
         getNewDeck();
         shuffleDeck();
+        int bet = userBet();
         Cards currentCard = drawCard();
         Constants.cardValue cardVal = currentCard.getCardValue();
         userCount += userCardValue(cardVal);
@@ -44,6 +48,11 @@ public class BlackjackGame {
                 currentCard = drawCard();
                 cardVal = currentCard.getCardValue();
                 userCount += userCardValue(cardVal);
+                if(userCount > 21){
+                    keepPlaying = false;
+                    addAndSubtractMoney(false, bet);
+                    System.out.println("You bust! You lost " + bet);
+                }
             }
         }
         if(keepPlaying()){
@@ -88,7 +97,11 @@ public class BlackjackGame {
     private Cards drawCard() {
         return arrList.remove(0);
     }
-
+    /**
+     * This method takes the enum value and converts it to a real value
+     * @param val - What the card value is
+     * @return the value of the card
+     */
     private int userCardValue(Constants.cardValue val) {
         if (val.equals(Constants.cardValue.ACE)) {
             return userOneOrElev();
@@ -154,5 +167,62 @@ public class BlackjackGame {
         else{
             return false;
         }
+    }
+    private int userBet(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Current amount: " + money);
+        System.out.print("What do you want to bet? ");
+        return scan.nextInt();
+    }
+    /**
+     * This takes the bid and adds or subtracts the money
+     * @param result weather the user wins, loses, or pushes
+     * @param bid the amount that got bet
+     */
+    private void addAndSubtractMoney(boolean result, int bid){
+        if(result){
+            money += bid;
+        }
+        else if(!result){
+
+            money -= bid;
+        }
+        else{
+            System.out.println("Push, no one lost");
+        }
+    }
+    private int dealerHand(Constants.cardValue val){
+        if (val.equals(Constants.cardValue.ACE)) {
+            return 11;
+        }
+        if (val.equals(Constants.cardValue.KING) || val.equals(Constants.cardValue.QUEEN)
+                || val.equals(Constants.cardValue.JACK) || val.equals(Constants.cardValue.TEN)) {
+            return 10;
+        }
+        if (val.equals(Constants.cardValue.NINE)) {
+            return 9;
+        }
+        if (val.equals(Constants.cardValue.EIGHT)) {
+            return 8;
+        }
+        if (val.equals(Constants.cardValue.SEVEN)) {
+            return 7;
+        }
+        if (val.equals(Constants.cardValue.SIX)) {
+            return 6;
+        }
+        if (val.equals(Constants.cardValue.FIVE)) {
+            return 5;
+        }
+        if (val.equals(Constants.cardValue.FOUR)) {
+            return 4;
+        }
+        if (val.equals(Constants.cardValue.THREE)) {
+            return 3;
+        }
+        if (val.equals(Constants.cardValue.TWO)) {
+            return 2;
+        }
+        return -1; // SHOULD be unreachable this is just in case, can never be too carful
     }
 }
