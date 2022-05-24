@@ -33,35 +33,18 @@ public class BlackjackGame {
      * This is the "logic" for the game
      */
     public void gameLogic() {
-        boolean keepPlaying = true;
         getNewDeck();
         shuffleDeck();
         int bet = userBet();
-        Cards currentCard = drawCard();
-        Cards dealerCard = drawCard();
-        printDealerCard(dealerCard);
-        printCard(currentCard);
-        Constants.cardValue cardVal = currentCard.getCardValue();
-        Constants.cardValue dealerCardVal = dealerCard.getCardValue();
-        dealerCount += numberValue(dealerCardVal);
-        userCount += numberValue(cardVal);
-        currentCard = drawCard();
-        cardVal = currentCard.getCardValue();
-        userCount += numberValue(cardVal);
-        while (keepPlaying) {
-            printCard(currentCard);
-            System.out.println("User hand : " + userCount);
-            keepPlaying = hitOrStay();
-            if (keepPlaying) {
-                currentCard = drawCard();
-                cardVal = currentCard.getCardValue();
-                userCount += numberValue(cardVal);
-                keepPlaying = userBust(bet);
-            }
+        startUp();
+        userDraw(bet);
+        
+        if(userBust(bet)){
+            dealerDraw(bet);
         }
         if(keepPlaying()){
             userCount = 0;
-            gameLogic();
+            startUp();
         }
     }
 
@@ -184,11 +167,11 @@ public class BlackjackGame {
      * @param result weather the user wins, loses, or pushes
      * @param bid the amount that got bet
      */
-    private void addAndSubtractMoney(boolean result, int bid){
-        if(result){
+    private void addAndSubtractMoney(char result, int bid){
+        if(result == 'w'){
             money += bid;
         }
-        else if(!result){
+        else if(result == 'l'){
 
             money -= bid;
         }
@@ -203,7 +186,7 @@ public class BlackjackGame {
     private boolean userBust(int bet){
         aceChanger();
             if(userCount > 21){
-            addAndSubtractMoney(false, bet);
+            addAndSubtractMoney('l', bet);
             System.out.println("You bust! You lost " + bet);
             return false;
         }
@@ -231,6 +214,60 @@ public class BlackjackGame {
      * @param card - dealers card
      */
     private void printDealerCard(Cards card){
-        System.out.println("Card : Value = " + card.getCardValue() + ", Suite = " + card.getCardSet()); 
+        System.out.println("Dealers Card - Card : Value = " + card.getCardValue() + ", Suite = " + card.getCardSet()); 
+    }
+
+    private void dealerDraw(int bet){
+        while(dealerCount <= 16){
+        Cards card = drawCard();
+        dealerCount += numberValue(card.getCardValue());
+        printDealerCard(card);
+        System.out.println("Dealers Count " + dealerCount);
+        }
+        if(dealerCount > 21){
+            addAndSubtractMoney('w', bet);
+        }
+        if(dealerCount > userCount){
+            addAndSubtractMoney('l', bet);
+        }
+        if(dealerCount < userCount){
+            addAndSubtractMoney('w', bet);
+        }
+        else 
+            addAndSubtractMoney('p', bet);
+    }
+
+    private void userDraw(int bet){
+        boolean keepPlaying = true;
+        Constants.cardValue cardVal;
+        Cards card;
+        while(keepPlaying){
+            System.out.println("User hand : " + userCount);
+            keepPlaying = hitOrStay();
+            if (keepPlaying) {
+                card = drawCard();
+                printCard(card);
+                cardVal = card.getCardValue();
+                userCount += numberValue(cardVal);
+                keepPlaying = userBust(bet);
+            }
+        }
+    }
+    /**
+     * This will be the startup
+     */
+    private void startUp(){
+        Cards currentCard = drawCard();
+        Cards dealerCard = drawCard();
+        printDealerCard(dealerCard);
+        printCard(currentCard);
+        Constants.cardValue cardVal = currentCard.getCardValue();
+        Constants.cardValue dealerCardVal = dealerCard.getCardValue();
+        dealerCount += numberValue(dealerCardVal);
+        userCount += numberValue(cardVal);
+        currentCard = drawCard();
+        printCard(currentCard);
+        cardVal = currentCard.getCardValue();
+        userCount += numberValue(cardVal);
     }
 }
