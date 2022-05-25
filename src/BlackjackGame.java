@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+
+import javax.lang.model.util.ElementScanner6;
+
 import java.util.*;
 
 public class BlackjackGame {
@@ -43,11 +46,15 @@ public class BlackjackGame {
         startUp();
         userDraw(bet);
         
-        if(userBust(bet)){
+        if(!userBust(bet)){
+            addAndSubtractMoney('l', bet);
+        }
+        if(userBustCheck()){
             dealerDraw(bet);
         }
         if(keepPlaying()){
             userCount = 0;
+            dealerCount = 0;
             gameLogic();
         }
     }
@@ -81,8 +88,7 @@ public class BlackjackGame {
             System.out.println();
         }
         for (int i = 0; i < arrList.size(); i++){
-        System.out.println("Card : Value = " + arrList.get(i).getCardValue() + 
-        ", Suite = " + arrList.get(i).getCardSet());
+        printCard(arrList.get(i));
          }
     }
 
@@ -193,6 +199,7 @@ public class BlackjackGame {
     private boolean userBust(int bet){
         aceChanger();
             if(userCount > 21){
+            System.out.println("You bust!");
             return false;
         }
         return true;
@@ -230,15 +237,19 @@ public class BlackjackGame {
         }
         if(dealerCount > 21){
             addAndSubtractMoney('w', bet);
+            return;
         }
         if(dealerCount > userCount && dealerCount <= 21){
             addAndSubtractMoney('l', bet);
+            return;
         }
         if(dealerCount < userCount){
             addAndSubtractMoney('w', bet);
+            return;
         }
         else 
             addAndSubtractMoney('p', bet);
+            return;
     }
 
     private void userDraw(int bet){
@@ -253,7 +264,7 @@ public class BlackjackGame {
                 printCard(card);
                 cardVal = card.getCardValue();
                 userCount += numberValue(cardVal);
-                keepPlaying = userBust(bet);
+                keepPlaying = userBustCheck();
             }
         }
     }
@@ -273,5 +284,12 @@ public class BlackjackGame {
         printCard(currentCard);
         cardVal = currentCard.getCardValue();
         userCount += numberValue(cardVal);
+    }
+    private boolean userBustCheck(){
+        if(userCount > 21){
+            return false;
+        }
+        else 
+            return true;
     }
 }
