@@ -7,6 +7,7 @@ public class BlackjackGame {
     private int dealerCount = 0;
     private int money;
     private int aceCounter = 0;
+    private int firstTime = 0;
     private ArrayList<Cards> arrList;
 
     public BlackjackGame() {
@@ -33,8 +34,11 @@ public class BlackjackGame {
      * This is the "logic" for the game
      */
     public void gameLogic() {
-        getNewDeck();
-        shuffleDeck();
+        if(firstTime == 0){
+            getNewDeck();
+            shuffleDeck();
+            firstTime++;
+        }
         int bet = userBet();
         startUp();
         userDraw(bet);
@@ -44,7 +48,7 @@ public class BlackjackGame {
         }
         if(keepPlaying()){
             userCount = 0;
-            startUp();
+            gameLogic();
         }
     }
 
@@ -170,10 +174,13 @@ public class BlackjackGame {
     private void addAndSubtractMoney(char result, int bid){
         if(result == 'w'){
             money += bid;
+            System.out.println("You won " + bid + " , current amount is " + money);
+            return;
         }
         else if(result == 'l'){
-
             money -= bid;
+            System.out.println("You lost " + bid + " , current amount is " + money);
+            return;
         }
         else{
             System.out.println("Push, no one lost");
@@ -186,8 +193,6 @@ public class BlackjackGame {
     private boolean userBust(int bet){
         aceChanger();
             if(userCount > 21){
-            addAndSubtractMoney('l', bet);
-            System.out.println("You bust! You lost " + bet);
             return false;
         }
         return true;
@@ -207,7 +212,6 @@ public class BlackjackGame {
      */
     private void printCard(Cards card){
         System.out.println("Card : Value = " + card.getCardValue() + ", Suite = " + card.getCardSet()); 
-
     }
     /**
      * just prints the dealers card
@@ -227,7 +231,7 @@ public class BlackjackGame {
         if(dealerCount > 21){
             addAndSubtractMoney('w', bet);
         }
-        if(dealerCount > userCount){
+        if(dealerCount > userCount && dealerCount <= 21){
             addAndSubtractMoney('l', bet);
         }
         if(dealerCount < userCount){
