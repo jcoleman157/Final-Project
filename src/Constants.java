@@ -17,7 +17,7 @@ public class Constants {
         public static final boolean VISFRAME = true;
         // What the name of the box that pops up is. Should be what it is you're looking
         // at. (may change to "Cardgame")
-        public static final String NAME = "BLACKJACK";
+        public static final String NAME = "BLACKACK";
         // This is the text for the start button
         public static final String START = "Start";
     }

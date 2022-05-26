@@ -1,7 +1,7 @@
 
-public class BlackjackRunner{
+public class BlackjackRunner {
     public static void main(String[] args) {
-        BlackjackGame blackjack = new BlackjackGame();
-        blackjack.gameLogic();
+        BlackjackVisuals blackjack = new BlackjackVisuals();
+        blackjack.prepareGUI();
     }
 }

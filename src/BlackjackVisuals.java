@@ -1,20 +1,29 @@
+import java.awt.*;
 import javax.swing.*;
-public class BlackjackVisuals{
+
+public class BlackjackVisuals {
+    private int WIDTH = Constants.mainBlackjackVisual.WIDTH;
+    private int HEIGHT = Constants.mainBlackjackVisual.HEIGHT;
     JFrame FRAME = new JFrame(Constants.mainBlackjackVisual.NAME);
     JButton START = new JButton(Constants.mainBlackjackVisual.START);
 
-    public BlackjackVisuals(){
-        
+    public BlackjackVisuals() {
+
     }
-    public void startup(){
-        FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        FRAME.setSize(Constants.mainBlackjackVisual.WIDTH, Constants.mainBlackjackVisual.HEIGHT);
+
+    public void prepareGUI() {
+        FRAME.setTitle(Constants.mainBlackjackVisual.NAME);
+        FRAME.setSize(WIDTH, HEIGHT);
+        FRAME.getContentPane().setLayout(null);
+        FRAME.getContentPane().setBackground(Color.GREEN);
+        FRAME.setResizable(false);
+        FRAME.setLocationRelativeTo(null);
         FRAME.setVisible(Constants.mainBlackjackVisual.VISFRAME);
-        addButton();
-        
+        FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-    private void addButton(){
-        
+
+    private void addButton() {
+
     }
-    
+
 }

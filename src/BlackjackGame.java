@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 
-import javax.lang.model.util.ElementScanner6;
-
 import java.util.*;
 
 public class BlackjackGame {
@@ -37,7 +35,7 @@ public class BlackjackGame {
      * This is the "logic" for the game
      */
     public void gameLogic() {
-        if(firstTime == 0){
+        if (firstTime == 0) {
             getNewDeck();
             shuffleDeck();
             firstTime++;
@@ -45,14 +43,14 @@ public class BlackjackGame {
         int bet = userBet();
         startUp();
         userDraw(bet);
-        
-        if(!userBust(bet)){
+
+        if (!userBust(bet)) {
             addAndSubtractMoney('l', bet);
         }
-        if(userBustCheck()){
+        if (userBustCheck()) {
             dealerDraw(bet);
         }
-        if(keepPlaying()){
+        if (keepPlaying()) {
             userCount = 0;
             dealerCount = 0;
             gameLogic();
@@ -87,16 +85,18 @@ public class BlackjackGame {
         for (int i = 0; i < 10; i++) {
             System.out.println();
         }
-        for (int i = 0; i < arrList.size(); i++){
-        printCard(arrList.get(i));
-         }
+        for (int i = 0; i < arrList.size(); i++) {
+            printCard(arrList.get(i));
+        }
     }
 
     private Cards drawCard() {
         return arrList.remove(0);
     }
+
     /**
      * This method takes the enum value and converts it to a real value
+     * 
      * @param val - What the card value is
      * @return the value of the card
      */
@@ -136,11 +136,10 @@ public class BlackjackGame {
         return -1; // SHOULD be unreachable this is just in case, can never be too carful
     }
 
-    private int oneOrElev(){
+    private int oneOrElev() {
         if (userCount <= 10) {
             return 11;
-        }
-        else{
+        } else {
             return 1;
         }
     }
@@ -155,108 +154,118 @@ public class BlackjackGame {
             return false;
         }
     }
-    private boolean keepPlaying(){
+
+    private boolean keepPlaying() {
         Scanner scan = new Scanner(System.in);
         System.out.print("Play again? (Y for yes, N for no) ");
         char keepPlaying = scan.nextLine().charAt(0);
-        if(keepPlaying == 'y' || keepPlaying == 'Y'){
+        if (keepPlaying == 'y' || keepPlaying == 'Y') {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
-    private int userBet(){
+
+    private int userBet() {
         Scanner scan = new Scanner(System.in);
         System.out.println("Current amount: " + money);
         System.out.print("What do you want to bet? ");
         return scan.nextInt();
     }
+
     /**
      * This takes the bid and adds or subtracts the money
+     * 
      * @param result weather the user wins, loses, or pushes
-     * @param bid the amount that got bet
+     * @param bid    the amount that got bet
      */
-    private void addAndSubtractMoney(char result, int bid){
-        if(result == 'w'){
+    private void addAndSubtractMoney(char result, int bid) {
+        if (result == 'w') {
             money += bid;
             System.out.println("You won " + bid + " , current amount is " + money);
             return;
-        }
-        else if(result == 'l'){
+        } else if (result == 'l') {
             money -= bid;
             System.out.println("You lost " + bid + " , current amount is " + money);
             return;
-        }
-        else{
+        } else {
             System.out.println("Push, no one lost");
         }
     }
+
     /**
      * Checks if user busts
+     * 
      * @param bet - amount user bet
      */
-    private boolean userBust(int bet){
+    private boolean userBust(int bet) {
         aceChanger();
-            if(userCount > 21){
+        if (userCount > 21) {
             System.out.println("You bust!");
             return false;
         }
         return true;
     }
+
     /**
      * makes it so if user busts but they have an ace it will subtract 10
      */
-    private void aceChanger(){
-        if(userCount > 21 && aceCounter != 0){
+    private void aceChanger() {
+        if (userCount > 21 && aceCounter != 0) {
             userCount -= 10;
             aceCounter--;
         }
     }
+
     /**
      * just prints the card
+     * 
      * @param card - card
      */
-    private void printCard(Cards card){
-        System.out.println("Card : Value = " + card.getCardValue() + ", Suite = " + card.getCardSet()); 
-    }
-    /**
-     * just prints the dealers card
-     * @param card - dealers card
-     */
-    private void printDealerCard(Cards card){
-        System.out.println("Dealers Card - Card : Value = " + card.getCardValue() + ", Suite = " + card.getCardSet()); 
+    private void printCard(Cards card) {
+        System.out.println("Card : Value = " + card.getCardValue() + ", Suite = " + card.getCardSet());
     }
 
-    private void dealerDraw(int bet){
-        while(dealerCount <= 16){
-        Cards card = drawCard();
-        dealerCount += numberValue(card.getCardValue());
-        printDealerCard(card);
-        System.out.println("Dealers Count " + dealerCount);
+    /**
+     * just prints the dealers card
+     * 
+     * @param card - dealers card
+     */
+    private void printDealerCard(Cards card) {
+        System.out.println("Dealers Card - Card : Value = " + card.getCardValue() + ", Suite = " + card.getCardSet());
+    }
+
+    private void dealerDraw(int bet) {
+        while (dealerCount <= 16) {
+            Cards card = drawCard();
+            dealerCount += numberValue(card.getCardValue());
+            printDealerCard(card);
+            System.out.println("Dealers Count " + dealerCount);
         }
-        if(dealerCount > 21){
+        if (dealerCount > 21) {
             addAndSubtractMoney('w', bet);
             return;
         }
-        if(dealerCount > userCount && dealerCount <= 21){
+        if (dealerCount > userCount && dealerCount <= 21) {
             addAndSubtractMoney('l', bet);
             return;
         }
-        if(dealerCount < userCount){
+        if (dealerCount < userCount) {
             addAndSubtractMoney('w', bet);
             return;
-        }
-        else 
+        } else
             addAndSubtractMoney('p', bet);
-            return;
+        return;
     }
-
-    private void userDraw(int bet){
+    /**
+     * asks the user if they want to hit or stay.
+     * @param bet
+     */
+    private void userDraw(int bet) {
         boolean keepPlaying = true;
         Constants.cardValue cardVal;
         Cards card;
-        while(keepPlaying){
+        while (keepPlaying) {
             System.out.println("User hand : " + userCount);
             keepPlaying = hitOrStay();
             if (keepPlaying) {
@@ -268,10 +277,11 @@ public class BlackjackGame {
             }
         }
     }
+
     /**
      * This will be the startup
      */
-    private void startUp(){
+    private void startUp() {
         Cards currentCard = drawCard();
         Cards dealerCard = drawCard();
         printDealerCard(dealerCard);
@@ -285,11 +295,14 @@ public class BlackjackGame {
         cardVal = currentCard.getCardValue();
         userCount += numberValue(cardVal);
     }
-    private boolean userBustCheck(){
-        if(userCount > 21){
+    /**
+     * Checks if the user bustes WITHOUT adjusting balance
+     * @return - false if they bust true if the didnt
+     */
+    private boolean userBustCheck() {
+        if (userCount > 21) {
             return false;
-        }
-        else 
+        } else
             return true;
     }
 }
