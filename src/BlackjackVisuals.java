@@ -7,12 +7,14 @@ public class BlackjackVisuals {
     private int HEIGHT = Constants.mainBlackjackVisual.HEIGHT;
     private JFrame FRAME = new JFrame(Constants.mainBlackjackVisual.NAME);
     private JButton START = new JButton(Constants.mainBlackjackVisual.START);
-
+    private Graphics g = FRAME.getGraphics();
     public BlackjackVisuals() {
+        
     }
 
     public void prepareGUI() {
-        Graphics g;
+        Toolkit t = Toolkit.getDefaultToolkit();
+        Image img = t.getImage("dog.jpg");
         FRAME.setSize(WIDTH, HEIGHT);
         FRAME.getContentPane().setLayout(null);
         FRAME.getContentPane().setBackground(Color.GREEN);
@@ -20,7 +22,8 @@ public class BlackjackVisuals {
         FRAME.setLocationRelativeTo(null);
         FRAME.setVisible(Constants.mainBlackjackVisual.VISFRAME);
         FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        g.drawImage("dog.jpg" ,50, 50, null);
+        FRAME.getGraphics();
+        g.drawImage(img ,0, 0, null);
     }
 
     private void addButton() {
