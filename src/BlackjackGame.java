@@ -41,18 +41,24 @@ public class BlackjackGame {
             firstTime++;
         }
         int bet = userBet();
-        startUp();
-        userDraw(bet);
-
-        if (!userBust(bet)) {
-            addAndSubtractMoney('l', bet);
+        if(userHasAmount(bet)){
+            startUp();
+            userDraw(bet);
+    
+            if (!userBust(bet)) {
+                addAndSubtractMoney('l', bet);
+            }
+            if (userBustCheck()) {
+                dealerDraw(bet);
+            }
+            if (keepPlaying()) {
+                userCount = 0;
+                dealerCount = 0;
+                gameLogic();
+            }
         }
-        if (userBustCheck()) {
-            dealerDraw(bet);
-        }
-        if (keepPlaying()) {
-            userCount = 0;
-            dealerCount = 0;
+        else{
+            System.out.println("You dont have enough for that bet!");
             gameLogic();
         }
     }
@@ -304,5 +310,15 @@ public class BlackjackGame {
             return false;
         } else
             return true;
+    }
+    /**
+     * 
+     */
+    private boolean userHasAmount(int bet){
+        if(bet <= money){
+            return true;
+        }
+        else
+            return false;
     }
 }
