@@ -16,12 +16,14 @@ public class Constants {
         // Swing for some reason requires a bool to see if frame is visible. ALWAYS TRUE
         public static final boolean VISFRAME = true;
         // This will decide weather the jFrame is resizable by the users
-        public static final boolean RESIZABLE = false;
+        public static final boolean RESIZABLE = true;
         // What the name of the box that pops up is. Should be what it is you're looking
         // at. (may change to "Cardgame")
         public static final String NAME = "BLACKJACK";
-        // This is the text for the start button
-        public static final String START = "Start";        
+        // This is the text for the hit button
+        public static final String HIT = "Hit";
+        // This is the text for the hit button
+        public static final String STAY = "Stay";
     }
 
     public class mainBlackjackGame {

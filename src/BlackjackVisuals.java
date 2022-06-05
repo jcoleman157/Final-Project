@@ -1,33 +1,46 @@
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
 
-
-public class BlackjackVisuals {
+public class BlackjackVisuals implements ActionListener {
+    int count = 0;
     private int WIDTH = Constants.mainBlackjackVisual.WIDTH;
     private int HEIGHT = Constants.mainBlackjackVisual.HEIGHT;
-    private JFrame FRAME = new JFrame(Constants.mainBlackjackVisual.NAME);
-    private JButton START = new JButton(Constants.mainBlackjackVisual.START);
-    private Graphics g = FRAME.getGraphics();
+    JFrame frame = new JFrame(Constants.mainBlackjackVisual.NAME);
+    JButton hit = new JButton(Constants.mainBlackjackVisual.HIT);
+    JButton stay = new JButton(Constants.mainBlackjackVisual.STAY);
+    ImageIcon image;
+    JLabel label = new JLabel("number of clicks" + count);
+
+
     public BlackjackVisuals() {
-        
+        JPanel panel = new JPanel();
+        panel.setSize(WIDTH, HEIGHT);
+        panel.setLayout(new GridLayout(0, 1));
+        panel.add(hit);
+        panel.add(stay);
+        hit.setSize(10, 10);
+        hit.addActionListener(this);
+
+        panel.add(label);
+
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(Constants.mainBlackjackVisual.VISFRAME);
+        frame.pack();
+        frame.setResizable(Constants.mainBlackjackVisual.RESIZABLE);
+        frame.getContentPane().setBackground(new Color(64,160,64));
+        // frame.setResizable(false);
+        // frame.setLocationRelativeTo(null);
+
     }
 
-    public void prepareGUI() {
-        Toolkit t = Toolkit.getDefaultToolkit();
-        Image img = t.getImage("dog.jpg");
-        FRAME.setSize(WIDTH, HEIGHT);
-        FRAME.getContentPane().setLayout(null);
-        FRAME.getContentPane().setBackground(Color.GREEN);
-        FRAME.setResizable(Constants.mainBlackjackVisual.RESIZABLE);
-        FRAME.setLocationRelativeTo(null);
-        FRAME.setVisible(Constants.mainBlackjackVisual.VISFRAME);
-        FRAME.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        FRAME.getGraphics();
-        g.drawImage(img ,0, 0, null);
+    public void startGame() {
     }
 
-    private void addButton() {
-
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        count ++;
+        label.setText("number of clicks " + count);
     }
-
 }
