@@ -11,7 +11,7 @@ public class Constants {
 
     public class mainBlackjackVisual {
         // Dimentions for the frame
-        public static final int WIDTH = 800;
+        public static final int WIDTH = 1800;
         public static final int HEIGHT = 800;
         // Swing for some reason requires a bool to see if frame is visible. ALWAYS TRUE
         public static final boolean VISFRAME = true;
