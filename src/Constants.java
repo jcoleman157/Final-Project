@@ -12,7 +12,9 @@ public class Constants {
     public class mainBlackjackVisual {
         // Dimentions for the frame
         public static final int WIDTH = 1800;
-        public static final int HEIGHT = 800;
+        public static final int HEIGHT = 700;
+        // y value for the buttons
+        public static final int Y = 600;
         // Swing for some reason requires a bool to see if frame is visible. ALWAYS TRUE
         public static final boolean VISFRAME = true;
         // This will decide weather the jFrame is resizable by the users
