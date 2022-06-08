@@ -30,6 +30,26 @@ public class BlackjackGame {
     public void setNumOfDecks(int numOfDecks) {
         this.numOfDecks = numOfDecks;
     }
+    
+    public int getMoney(){
+        return money;
+    }
+    
+    public void setMoney(int money){
+        this.money = money;
+    }
+    public int getUserCount(){
+        return userCount;
+    }
+    public void setUserCount(int userCount){
+        this.userCount = userCount;
+    }
+    public int getDealerCount(){
+        return dealerCount;
+    }
+    public void setDealerCount(int dealerCount){
+        this.dealerCount = dealerCount;
+    }
 
     /**
      * This is the "logic" for the game

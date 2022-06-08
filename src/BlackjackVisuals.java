@@ -1,13 +1,16 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.Scanner;
 
 public class BlackjackVisuals implements ActionListener {
+    private Scanner scan = new Scanner(System.in);
     public static int count = 0;
     private JButton[] functions = new JButton[2];
     private int WIDTH = Constants.mainBlackjackVisual.WIDTH;
     private int HEIGHT = Constants.mainBlackjackVisual.HEIGHT;
     private int y = Constants.mainBlackjackVisual.Y;
+    private int caseWorks;
     private JButton hit,stay;
     private JFrame frame = new JFrame(Constants.mainBlackjackVisual.NAME);
     private ImageIcon image;
@@ -20,29 +23,26 @@ public class BlackjackVisuals implements ActionListener {
         hit = new JButton(Constants.mainBlackjackVisual.HIT);
         stay = new JButton(Constants.mainBlackjackVisual.STAY);
         frame.add(label);
-        label.setBounds(550, y, 100, 100);
+        label.setForeground(Color.WHITE);
 
         functions[0] = hit;
         functions[1] = stay;
         int x = 0;
         for(int i = 0; i < functions.length; i++){
             functions[i].addActionListener(this);
-            functions[i].setActionCommand("" +  i);
             functions[i].setFocusable(false);
-            functions[i].setBounds(x,y,50,30);
+            functions[i].setBounds(x,y,80,30);
             frame.add(functions[i]);
-            x+=60;
+            x+=85;
         }
-
-
-
-        panel.add(label);
-        frame.add(panel, BorderLayout.CENTER);
+        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(Constants.mainBlackjackVisual.VISFRAME);
         frame.setResizable(Constants.mainBlackjackVisual.RESIZABLE);
         frame.getContentPane().setBackground(new Color(64, 160, 64));
-
+        label.setBounds(x - 120, y - 80, 1000, 100);
+        frame.add(label);
+        int test = scan.nextInt();
     }
 
     public void startGame() {
@@ -50,16 +50,14 @@ public class BlackjackVisuals implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        int action = Integer.parseInt(e.getActionCommand());;
-        switch(action){
-        case 1:
+        Object src = e.getSource();
+        if(src == hit){
             count++;
-            label = new JLabel("number of clicks " + count);
-            break;
-        case 2: 
+            System.out.println("43");
+        }
+         else if(src == stay){
             count--;
-            label = new JLabel("number of clicks " + count);
-            break;
+            label.setText("number of clicks " + count);
+        }
     }
-}
 }
